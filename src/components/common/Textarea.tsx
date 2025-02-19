@@ -1,7 +1,13 @@
 import React, { useState } from "react";
-import { PaperclipIcon, SendHorizonal } from "lucide-react";
+import { Loader, PaperclipIcon, SendHorizonal } from "lucide-react";
 
-function Textarea({ handleSubmit }: { handleSubmit: (value: string) => void }) {
+function Textarea({
+  handleSubmit,
+  isLoading,
+}: {
+  handleSubmit: (value: string) => void;
+  isLoading: boolean;
+}) {
   const [inputValue, setInputValue] = useState("");
 
   return (
@@ -26,7 +32,8 @@ function Textarea({ handleSubmit }: { handleSubmit: (value: string) => void }) {
           <PaperclipIcon className="size-5" />
         </div>
         <button
-          className="hover:bg-gray-200 h-10  p-3 border gap-2 flex items-center justify-center rounded-xl"
+          className={`hover:bg-gray-200 h-10  p-3 border gap-2 flex items-center justify-center rounded-xl ${isLoading && "text-gray-400"}`}
+          disabled={isLoading}
           onClick={(e) => {
             const trimmedStr = inputValue.trim();
 
@@ -37,7 +44,10 @@ function Textarea({ handleSubmit }: { handleSubmit: (value: string) => void }) {
           }}
         >
           submit
-          <SendHorizonal className="size-5" />
+          {
+           isLoading ? <Loader className=" size-5 animate-spin"/> : <SendHorizonal className="size-5" /> 
+          }
+          
         </button>
       </div>
     </div>

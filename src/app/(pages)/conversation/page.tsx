@@ -31,7 +31,7 @@ function page() {
     <div className="flex flex-col h-full">
       <div className=" flex gap-3 h-full justify-center  flex-col items-center">
         <h1 className=" text-2xl font-semibold ">What can I help with?</h1>
-        <Textarea handleSubmit={handleSubmit} />
+        <Textarea handleSubmit={handleSubmit} isLoading={conversationMutation.isPending} />
       </div>
     </div>
   );

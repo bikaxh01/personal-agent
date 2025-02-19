@@ -26,7 +26,6 @@ function ConversationPage() {
   const fetchAllMsgMutation = useMutation({
     mutationFn: getAllMessages,
     onSuccess: (data) => {
-      
       setMessages((prev) => [...data.data]);
     },
     onError: (error) => {
@@ -45,8 +44,9 @@ function ConversationPage() {
       });
       removeInitialPrompt();
     } else {
-     
-      fetchAllMsgMutation.mutateAsync({conversationId:params.conversationId});
+      fetchAllMsgMutation.mutateAsync({
+        conversationId: params.conversationId,
+      });
     }
   }, []);
 
@@ -62,14 +62,12 @@ function ConversationPage() {
     console.log("🚀 ~ handleSubmit ~ value:", value);
   };
   return (
-    <div className=" flex flex-col h-full ">
-      <div className=" relative">
-        <div className="">
-          <ChatComponent messages={messages} />
-        </div>
-        <div className=" absolute z-10  w-full items-center justify-center flex top-[31rem]">
-          <Textarea handleSubmit={handleSubmit} />
-        </div>
+    <div className=" grid    h-full grid-rows-12 ">
+      <div className=" row-span-9">
+        <ChatComponent messages={messages} />
+      </div>
+      <div className=" row-span-3 flex items-center justify-center">
+        <Textarea handleSubmit={handleSubmit}  isLoading={isPending}/>
       </div>
     </div>
   );

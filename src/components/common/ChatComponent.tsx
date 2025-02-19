@@ -14,10 +14,10 @@ export type Message = {
 };
 
 export function ChatComponent({ messages }: { messages: Message[] }) {
-  console.log("🚀 ~ ChatComponent ~ messages:", messages)
+  
   return (
     <>
-      <div className="  h-[35rem]  pl-16 flex  flex-col gap-4 pr-16 overflow-auto">
+      <div className="  h-full  pl-16 flex  flex-col gap-4 pr-16 overflow-auto">
         {messages.map((item,index) =>
           item.role === "USER" ? (
             <div

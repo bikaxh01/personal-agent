@@ -14,9 +14,12 @@ export async function GET(req: Request) {
       where: {
         userId: userId,
       },
+      orderBy: {
+      createdAt:"desc",
+      },
     });
 
-    return sendResponse(conversations, "successfully created");
+    return sendResponse(conversations, "successfully");
   } catch (error) {
     return sendResponse([], "Something went wrong while ", false, 500);
   }

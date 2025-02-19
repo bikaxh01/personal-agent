@@ -4,12 +4,12 @@ import React, { ReactNode } from "react";
 
 function layout({ children }: { children: ReactNode }) {
   return (
-    <div>
+    <div >
       <div className=" grid grid-cols-12">
-        <div className="col-span-2 ">
+        <div className="col-span-2  ">
           <Sidebar />
         </div>
-        <div className="col-span-10 grid grid-rows-12 ">
+        <div className="col-span-10 grid    h-screen grid-rows-12 ">
           <div className="row-span-1">
             <Navbar />
           </div>
