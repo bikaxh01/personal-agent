@@ -23,12 +23,12 @@ const history = [
 
 function Sidebar() {
   return (
-    <div className=" h-screen  p-3 border-r-2">
-      <div className=" flex items-center justify-between">
+    <div className=" h-screen grid-rows-12 grid p-3 border-r-2">
+      <div className=" flex row-span-1 h-12  items-center justify-between">
         <Settings />
         <CircleFadingPlus />
       </div>
-      <div className=" mt-7 overflow-auto  justify-center h-[35rem]  flex flex-col gap-3 ">
+      <div className="  overflow-auto row-span-9 justify-center h-full  flex flex-col gap-3 ">
         {history.map((item, index) => (
           <div className="  p-2 hover:bg-gray-200  rounded-lg" key={index}>
             {item.title}
@@ -36,7 +36,7 @@ function Sidebar() {
         ))}
       </div>
 
-      <div className="  items-center justify-center flex">
+      <div className="row-span-2   items-center justify-center flex">
         <h1 className=" text-xl ">Your Personal Assistant</h1>
       </div>
     </div>

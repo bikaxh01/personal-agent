@@ -11,7 +11,7 @@ export function GET(req: Request) {
     prompt: "consent", // Force consent to always get a refresh token
     scope: [
       "https://mail.google.com/",
-      "           https://www.googleapis.com/auth/userinfo.email",
+      " https://www.googleapis.com/auth/userinfo.email",
       "https://www.googleapis.com/auth/userinfo.profile",
     ],
   });
