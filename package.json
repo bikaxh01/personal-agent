@@ -1,0 +1,40 @@
+{
+  "name": "personal_agent",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^6.11.3",
+    "@langchain/core": "^0.3.40",
+    "@langchain/langgraph": "^0.2.46",
+    "@langchain/openai": "^0.4.4",
+    "@prisma/client": "^6.3.1",
+    "@tanstack/react-query": "^5.66.6",
+    "axios": "^1.7.9",
+    "googleapis": "^144.0.0",
+    "lucide-react": "^0.475.0",
+    "next": "15.1.7",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-markdown": "^9.0.3",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1",
+    "svix": "^1.57.0",
+    "zod": "^3.24.2",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "postcss": "^8",
+    "prisma": "^6.3.1",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
