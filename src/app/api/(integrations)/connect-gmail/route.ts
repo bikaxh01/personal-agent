@@ -7,16 +7,16 @@ const oauth2Client = new google.auth.OAuth2(
 
 export function GET(req: Request) {
   const authUrl = oauth2Client.generateAuthUrl({
-    access_type: "offline", // To get refresh token
-    prompt: "consent", // Force consent to always get a refresh token
+    access_type: "offline", 
+    prompt: "consent", 
     scope: [
       "https://mail.google.com/",
       " https://www.googleapis.com/auth/userinfo.email",
       "https://www.googleapis.com/auth/userinfo.profile",
     ],
   });
-  console.log("🚀 ~ GET ~ authUrl:", process.env.GOOGLE_REDIRECT_URL);
+  // console.log("🚀 ~ GET ~ authUrl:", process.env.GOOGLE_REDIRECT_URL);
 
-  console.log("🚀 ~ GET ~ authUrl:", authUrl);
+  // console.log("🚀 ~ GET ~ authUrl:", authUrl);
   return Response.redirect(authUrl);
 }

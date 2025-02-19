@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { CircleFadingPlus, Loader, NotebookPen, Settings } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { IntegrationComponent } from "./IntegrationDialog";
 
 function Sidebar() {
   const { data, isFetching } = useQuery({
@@ -15,9 +16,9 @@ function Sidebar() {
   return (
     <div className=" h-screen    grid-rows-12 grid p-3 border-r-2">
       <div className=" flex   row-span-1 h-12  items-center justify-between">
-        <Link href={"/setting"}>
-          <Settings />
-        </Link>
+        
+          <IntegrationComponent/>
+        
         <Link href={"/conversation"}>
           <CircleFadingPlus />
         </Link>
