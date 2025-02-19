@@ -3,7 +3,7 @@ import { create } from "zustand";
 interface initialPromptStore {
   initialPrompt: string | null;
   addInitialPrompt: (value: string) => void;
-  removeInitialPrompt: (name: string) => void;
+  removeInitialPrompt: () => void;
 }
 
 export const useInitialPromptStore = create<initialPromptStore>((set) => ({

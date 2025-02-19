@@ -8,19 +8,21 @@ import "highlight.js/styles/github-dark.css";
 import { UserButton } from "@clerk/nextjs";
 
 export type Message = {
-    type: 'user' | 'bot';
-    content: string;
-  };
+  role: "USER" | "SYSTEM";
+  content: string;
+  
+};
 
 export function ChatComponent({ messages }: { messages: Message[] }) {
+  console.log("🚀 ~ ChatComponent ~ messages:", messages)
   return (
     <>
       <div className="  h-[35rem]  pl-16 flex  flex-col gap-4 pr-16 overflow-auto">
-        {messages.map((item) =>
-          item.type === "user" ? (
+        {messages.map((item,index) =>
+          item.role === "USER" ? (
             <div
               className=" flex  items-end gap-3 justify-end p-2"
-              key={item.content}
+              key={index}
             >
               <div className=" overflow-hidden  bg-gray-200  rounded-lg  flex items-center max-w-[30rem]  p-2 justify-center">
                 <h2 className=" font-semibold text-l">{item.content}</h2>
@@ -28,7 +30,7 @@ export function ChatComponent({ messages }: { messages: Message[] }) {
             </div>
           ) : (
             <ReactMarkdown
-              key={item.content}
+              key={index}
               className={""}
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeHighlight]}
