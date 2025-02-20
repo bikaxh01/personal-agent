@@ -14,13 +14,16 @@ export async function GET(req: NextRequest) {
   const code = fullUrl.searchParams.get("code");
   // const userId = fullUrl.searchParams.get("userId");
   const { userId } = await auth();
+  
+  
+  
 
   if(!userId){
-    return sendResponse([], "invalid request", false, 500);
+    return sendResponse([], "invalid requesthhh", false, 500);
   }
 
   const { tokens } = await oauth2Client.getToken(code as string);
-
+    
    try {
     const response = await fetch(
       "https://www.googleapis.com/oauth2/v1/userinfo?alt=json",
@@ -31,8 +34,7 @@ export async function GET(req: NextRequest) {
       }
     );
     const userInfo = await response.json();
-    console.log("User Info:", userInfo);
-    console.log("🚀 ~ GET ~ tokens:", tokens);
+   
 
     if (!tokens.access_token || !tokens.refresh_token || !tokens.expiry_date) {
       return sendResponse([], "invalid request", false, 500);
@@ -43,7 +45,7 @@ export async function GET(req: NextRequest) {
         accessToken: tokens.access_token,
         expireIn: tokens.expiry_date.toString(),
         refreshToken: tokens.refresh_token,
-        emailAddress: "ikashb",
+        emailAddress: userInfo.email,
         userId:userId
       },
     });

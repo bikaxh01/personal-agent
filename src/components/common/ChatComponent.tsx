@@ -10,22 +10,17 @@ import { UserButton } from "@clerk/nextjs";
 export type Message = {
   role: "USER" | "SYSTEM";
   content: string;
-  
 };
 
 export function ChatComponent({ messages }: { messages: Message[] }) {
-  
   return (
     <>
       <div className="  h-full  pl-16 flex  flex-col gap-4 pr-16 overflow-auto">
-        {messages.map((item,index) =>
+        {messages.map((item, index) =>
           item.role === "USER" ? (
-            <div
-              className=" flex  items-end gap-3 justify-end p-2"
-              key={index}
-            >
+            <div className=" flex  items-end gap-3 justify-end p-2" key={index}>
               <div className=" overflow-hidden  bg-gray-200  rounded-lg  flex items-center max-w-[30rem]  p-2 justify-center">
-                <h2 className=" font-semibold text-l">{item.content}</h2>
+                <h2 className="  text-l">{item.content}</h2>
               </div>
             </div>
           ) : (

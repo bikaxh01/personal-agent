@@ -2,7 +2,15 @@ import { tools } from "./Tools";
 import { ChatOpenAI } from "@langchain/openai";
 import { MessagesAnnotation, StateGraph } from "@langchain/langgraph";
 import { SystemMessage, ToolMessage } from "@langchain/core/messages";
+import { prisma } from "./PrismaClient";
+import { Message } from "@/components/common/ChatComponent";
+import { message } from "@prisma/client";
 
+
+type Message = {
+  role: "USER" | "SYSTEM";
+  content: string;
+};
 const API_KEY = process.env.OPEN_AI_KEY;
 
 const llm = new ChatOpenAI({
@@ -14,13 +22,30 @@ const llm = new ChatOpenAI({
 const toolsByName = Object.fromEntries(tools.map((tool) => [tool.name, tool]));
 const llmWithTools = llm.bindTools(tools);
 
-export async function generateResponse(userPrompt: string) {
+export async function generateResponse(
+  userPrompt: string,
+  allMessages: Message[]
+) {
+
+  const filteredAllMessage = allMessages.map((msg)=>{
+    // const message = {
+    //   role: msg.role === "USER" ?msg.role.toLowerCase(): 
+    // }
+    return {
+      role:msg.role.toLocaleLowerCase(),
+      content:msg.content
+    }
+  })
+
   const messages = [
+    ...filteredAllMessage,
+
     {
       role: "user",
       content: userPrompt,
     },
   ];
+  
   const result = await agentBuilder.invoke({ messages });
 
   return result.messages[result.messages.length - 1].content;
@@ -28,11 +53,12 @@ export async function generateResponse(userPrompt: string) {
 
 async function llmCall(state: typeof MessagesAnnotation.State) {
   // LLM decides whether to call a tool or not
+  const prevMessages = await prisma.message.findMany();
   const result = await llmWithTools.invoke([
     {
       role: "system",
       content:
-        "You are a helpful assistant tasked with performing arithmetic on a set of inputs. NOTE: response should be in markdown format",
+        "You are a helpful AI Agent access to different tools you task is to observe the user prompt and think whether the user want to do any task then perform that task by calling te tool   TOOLS YOU HAVE: add ,multiply, sendMail, getEmailAddress",
     },
     ...state.messages,
   ]);

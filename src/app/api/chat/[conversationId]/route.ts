@@ -8,7 +8,7 @@ export async function POST(
   { params }: { params: { conversationId: string } }
 ) {
   try {
-    const { conversationId } =  params;
+    const { conversationId } = params;
     const { userPrompt } = await req.json();
 
     if (!conversationId) {
@@ -33,8 +33,18 @@ export async function POST(
       },
     });
 
+    // get all messages
+    const messages = await prisma.message.findMany({
+      where: {
+        conversationId: conversation.id,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+    
     // generate system response
-    const systemResponse = await generateResponse(userPrompt);
+    const systemResponse = await generateResponse(userPrompt,messages);
 
     // add to db
     const systemMessage = await prisma.message.create({
@@ -45,7 +55,7 @@ export async function POST(
       },
     });
 
-    return sendResponse(systemResponse , "success", true, 200);
+    return sendResponse(systemResponse, "success", true, 200);
   } catch (error) {
     console.log("🚀 ~ error:", error);
     return sendResponse([], "something went wrong", false, 500);

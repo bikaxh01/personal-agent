@@ -9,18 +9,23 @@ function Textarea({
   isLoading: boolean;
 }) {
   const [inputValue, setInputValue] = useState("");
+  console.log("🚀 ~ inputValue:", inputValue)
 
   return (
     <div className="  h-[8rem] w-[50rem] p-2 border-2 bg-white rounded-md">
       <textarea
+      value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            const trimmedStr = inputValue.trim();
-            e.preventDefault();
-            if (trimmedStr) {
-              handleSubmit(trimmedStr);
-              return;
+          if (!isLoading) {
+            if (e.key === "Enter") {
+              setInputValue('')
+              const trimmedStr = inputValue.trim();
+              e.preventDefault();
+              if (trimmedStr) {
+                handleSubmit(trimmedStr);
+                return;
+              }
             }
           }
         }}
@@ -32,9 +37,12 @@ function Textarea({
           <PaperclipIcon className="size-5" />
         </div>
         <button
-          className={`hover:bg-gray-200 h-10  p-3 border gap-2 flex items-center justify-center rounded-xl ${isLoading && "text-gray-400"}`}
+          className={`hover:bg-gray-200 h-10  p-3 border gap-2 flex items-center justify-center rounded-xl ${
+            isLoading && "text-gray-400"
+          }`}
           disabled={isLoading}
           onClick={(e) => {
+            setInputValue('')
             const trimmedStr = inputValue.trim();
 
             if (trimmedStr) {
@@ -44,10 +52,11 @@ function Textarea({
           }}
         >
           submit
-          {
-           isLoading ? <Loader className=" size-5 animate-spin"/> : <SendHorizonal className="size-5" /> 
-          }
-          
+          {isLoading ? (
+            <Loader className=" size-5 animate-spin" />
+          ) : (
+            <SendHorizonal className="size-5" />
+          )}
         </button>
       </div>
     </div>

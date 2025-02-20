@@ -1,20 +1,4 @@
-import { google } from "googleapis";
 
-const { OAuth2Client } = require("google-auth-library");
-
-const oauth2Client = new OAuth2Client(
-  process.env.GOOGLE_CLIENT_ID,
-  process.env.GOOGLE_CLIENT_SECRET,
-  process.env.GOOGLE_REDIRECT_URL
-);
-
-// After the user has authenticated, you'll have an access token
-oauth2Client.setCredentials({
-  access_token:
-    "ya29.a0AXeO80Ql6VzdzArMzKrG0vo9hlUyeURUSB9DhULajh3LELa_C_v7Lq5O1r7oXPZSsEW66yDeaxCY0-ILve5Z0r1QxmT3ZhqNzrfGezwSZePWe4zWS0kA8ZkLN09P_81cIdJjKF2aDEdmfj7GVC0HbrSt4apsDtQOOYq44flBaCgYKAfISARMSFQHGX2MiBIyg9Uw_xKNPHY5rXurDuA0175",
-  refresh_token:
-    "1//0gYQnF8iUbZEHCgYIARAAGBASNgF-L9IrLnD9kbEt4JUXNTJJoaSqBE4BgeiT1hs0CR_NJfSpj-ZMcuSQnT33Aor7ZM0e9frbyw",
-});
 
 export async function GET(req: Request) {
   sendEmail(oauth2Client, "mishrabikash202@gmail.com", "test123", "hello using api");

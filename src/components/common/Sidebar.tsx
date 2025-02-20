@@ -16,36 +16,35 @@ function Sidebar() {
   return (
     <div className=" h-screen    grid-rows-12 grid p-3 border-r-2">
       <div className=" flex   row-span-1 h-12  items-center justify-between">
-        
-          <IntegrationComponent/>
-        
+        <IntegrationComponent />
+
         <Link href={"/conversation"}>
           <CircleFadingPlus />
         </Link>
       </div>
       <div className="   row-span-9  h-full p-2   flex flex-col  ">
         <h1 className=" border-b-2 ">History</h1>
-        <div className="overflow-auto gap-1  ">
+        <div className="overflow-auto gap-1  max-w-full">
+          {isFetching ? (
+            <div className="flex items-center   justify-center">
+              <Loader className=" size-7 text-gray-400  animate-spin " />
+            </div>
+          ) : data.length > 0 ? (
+            data.map((item: any, index: number) => (
+              <Link
+                href={`/conversation/${item.id}`}
+                key={index}
+                className={`max-h-10  hover:bg-gray-200     flex p-2 rounded-lg `}
+              >
+             
 
-        
-        {isFetching ? (
-          <div className="flex items-center  justify-center">
-            <Loader className=" size-7 text-gray-400  animate-spin " />
-          </div>
-        ) : data.length > 0 ? (
-          data.map((item: any, index: number) => (
-            <Link
-              href={`/conversation/${item.id}`}
-              className={`max-h-10 hover:bg-gray-200  w-52  flex p-2 rounded-lg `}
-            >
-              <div className="  truncate" key={index}>
                 {item.title}
-              </div>
-            </Link>
-          ))
-        ) : (
-          <h2>No history</h2>
-        )}
+             
+              </Link>
+            ))
+          ) : (
+            <h2>No history</h2>
+          )}
         </div>
       </div>
 
