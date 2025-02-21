@@ -10,6 +10,8 @@ export default function Home() {
   const [message, setMesage] = useState(
     'Here are examples of how to sum two numbers in Python, JavaScript, and Go:\n\n### Python\n```python\ndef sum_two_numbers(a, b):\n    return a + b\n\n# Example usage\nresult = sum_two_numbers(3, 5)\nprint("The sum is:", result)\n```\n\n### JavaScript\n```javascript\nfunction sumTwoNumbers(a, b) {\n    return a + b;\n}\n\n// Example usage\nlet result = sumTwoNumbers(3, 5);\nconsole.log("The sum is:", result);\n```\n\n### Go\n```go\npackage main\n\nimport "fmt"\n\nfunc sumTwoNumbers(a int, b int) int {\n    return a + b\n}\n\nfunc main() {\n    result := sumTwoNumbers(3, 5)\n    fmt.Println("The sum is:", result)\n}\n```\n\nThese snippets define a function in each language that takes two numbers as arguments and returns their sum. The example usage demonstrates how to call the function and print the result.'
   );
+  console.log(message);
+  
   return (
     <>
       <div className=" flex items-center justify-center flex-col bg-red-300 ">
