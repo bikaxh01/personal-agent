@@ -6,7 +6,6 @@ import { prisma } from "./PrismaClient";
 import { Message } from "@/components/common/ChatComponent";
 import { message } from "@prisma/client";
 
-
 type Message = {
   role: "USER" | "SYSTEM";
   content: string;
@@ -26,16 +25,15 @@ export async function generateResponse(
   userPrompt: string,
   allMessages: Message[]
 ) {
-
-  const filteredAllMessage = allMessages.map((msg)=>{
+  const filteredAllMessage = allMessages.map((msg) => {
     // const message = {
-    //   role: msg.role === "USER" ?msg.role.toLowerCase(): 
+    //   role: msg.role === "USER" ?msg.role.toLowerCase():
     // }
     return {
-      role:msg.role.toLocaleLowerCase(),
-      content:msg.content
-    }
-  })
+      role: msg.role.toLocaleLowerCase(),
+      content: msg.content,
+    };
+  });
 
   const messages = [
     ...filteredAllMessage,
@@ -45,7 +43,7 @@ export async function generateResponse(
       content: userPrompt,
     },
   ];
-  
+
   const result = await agentBuilder.invoke({ messages });
 
   return result.messages[result.messages.length - 1].content;
@@ -58,7 +56,7 @@ async function llmCall(state: typeof MessagesAnnotation.State) {
     {
       role: "system",
       content:
-        "You are a helpful AI Agent access to different tools you task is to observe the user prompt and think whether the user want to do any task then perform that task by calling te tool   TOOLS YOU HAVE: add ,multiply, sendMail, getEmailAddress",
+        "You are a helpful AI Agent access to different tools you task is to observe the user prompt and think whether the user want to do any task then perform that task by calling te tool   ",
     },
     ...state.messages,
   ]);

@@ -22,9 +22,22 @@ model user {
   createdAt    DateTime       @default(now())
   conversation conversation[]
   emailId      email?
+  meet meet?
 }
 
 model email {
+  id String @id @default(cuid())
+
+  userId       String   @unique
+  emailAddress String
+  refreshToken String
+  accessToken  String
+  expireIn     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         user     @relation(fields: [userId], references: [id])
+}
+model meet {
   id String @id @default(cuid())
 
   userId       String   @unique

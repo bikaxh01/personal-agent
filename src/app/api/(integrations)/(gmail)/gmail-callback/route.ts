@@ -7,7 +7,7 @@ import { sendResponse } from "@/config/Response";
 const oauth2Client = new google.auth.OAuth2(
   process.env.GOOGLE_CLIENT_ID,
   process.env.GOOGLE_CLIENT_SECRET,
-  process.env.GOOGLE_REDIRECT_URL
+   process.env.GOOGLE_GMAIL_REDIRECT_URL
 );
 export async function GET(req: NextRequest) {
   const fullUrl = new URL(req.url);
@@ -22,9 +22,10 @@ export async function GET(req: NextRequest) {
     return sendResponse([], "invalid requesthhh", false, 500);
   }
 
-  const { tokens } = await oauth2Client.getToken(code as string);
-    
-   try {
+  
+  try {
+     const { tokens } = await oauth2Client.getToken(code as string);
+
     const response = await fetch(
       "https://www.googleapis.com/oauth2/v1/userinfo?alt=json",
       {
@@ -34,6 +35,7 @@ export async function GET(req: NextRequest) {
       }
     );
     const userInfo = await response.json();
+
    
 
     if (!tokens.access_token || !tokens.refresh_token || !tokens.expiry_date) {
@@ -53,7 +55,7 @@ export async function GET(req: NextRequest) {
     return Response.redirect(`${fullUrl.origin}/conversation`);
   } catch (error) {
     console.log("🚀 ~ GET ~ error:", error);
-    return Response.json("Google calback");
+    return Response.json("Something went wrong");
   }
 }
 

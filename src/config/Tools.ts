@@ -8,8 +8,8 @@ const { OAuth2Client } = require("google-auth-library");
 
 const oauth2Client = new OAuth2Client(
   process.env.GOOGLE_CLIENT_ID,
-  process.env.GOOGLE_CLIENT_SECRET,
-  process.env.GOOGLE_REDIRECT_URL
+  process.env.GOOGLE_CLIENT_SECRET
+  // process.env.GOOGLE_GMAIL_REDIRECT_URL
 );
 
 const multiply = tool(
@@ -63,6 +63,9 @@ const sendMail = tool(
         },
       });
 
+      if(!userToken){
+        return "please connect goggle account to send email  "
+      }
       oauth2Client.setCredentials({
         access_token: userToken?.accessToken,
         refresh_token: userToken?.refreshToken,
@@ -117,4 +120,47 @@ const getEmailAddress = tool(
   }
 );
 
-export const tools = [add, multiply, sendMail, getEmailAddress];
+const createMeet = tool(
+  async () => {
+    try {
+      const meet = google.meet({ version: "v2", auth: oauth2Client });
+      const { userId } = await auth();
+
+      if (!userId)
+        
+        
+        return `{ status: "Error", message: "user is not authenticated" }`;
+      const gmail = google.gmail({ version: "v1", auth: oauth2Client });
+
+      const userToken = await prisma.meet.findUnique({
+        where: {
+          userId,
+        },
+      });
+
+      if(!userToken){
+     
+        return "please connect goggle account to create meet  "
+      }
+
+      oauth2Client.setCredentials({
+        access_token: userToken?.accessToken,
+        refresh_token: userToken?.refreshToken,
+      });
+      const meetRes = await meet.spaces.create({
+        requestBody: {},
+      });
+
+      return `${meetRes.data.meetingUri}`;
+    } catch (error) {
+      console.log("🚀 ~ error:", error);
+      return "something went wrong while creating meet";
+    }
+  },
+  {
+    name: "createMeet",
+    description: "This tool can be used to create google meet ",
+  }
+);
+
+export const tools = [add, multiply, sendMail, getEmailAddress, createMeet];

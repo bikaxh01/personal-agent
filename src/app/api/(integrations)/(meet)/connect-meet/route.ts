@@ -3,7 +3,7 @@ import { google } from "googleapis";
 const oauth2Client = new google.auth.OAuth2(
   process.env.GOOGLE_CLIENT_ID,
   process.env.GOOGLE_CLIENT_SECRET,
-  process.env.GOOGLE_REDIRECT_URL
+  process.env.GOOGLE_MEET_REDIRECT_URL
 );
 
 export function GET(req: Request) {
@@ -11,10 +11,13 @@ export function GET(req: Request) {
     access_type: "offline",
     prompt: "consent",
     scope: [
-      "https://mail.google.com/",
+      "https://www.googleapis.com/auth/meetings.space.created",
+
       " https://www.googleapis.com/auth/userinfo.email",
       "https://www.googleapis.com/auth/userinfo.profile",
     ],
+    state: "meet",
+    redirect_uri: process.env.GOOGLE_MEET_REDIRECT_URL,
   });
   // console.log("🚀 ~ GET ~ authUrl:", process.env.GOOGLE_REDIRECT_URL);
 

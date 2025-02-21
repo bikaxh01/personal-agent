@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState,useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
@@ -13,9 +13,21 @@ export type Message = {
 };
 
 export function ChatComponent({ messages }: { messages: Message[] }) {
+  const chatComponent = useRef(null);
+
+
+  useEffect(() => {
+    if (chatComponent.current) {
+      chatComponent.current.scrollTop = chatComponent.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <>
-      <div className="  h-full  pl-16 flex  flex-col gap-4 pr-16 overflow-auto">
+      <div
+        ref={chatComponent}
+        className="  h-full  pl-16 flex scroll-smooth  flex-col gap-4 pr-16 overflow-auto"
+      >
         {messages.map((item, index) =>
           item.role === "USER" ? (
             <div className=" flex  items-end gap-3 justify-end p-2" key={index}>
