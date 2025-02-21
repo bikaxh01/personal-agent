@@ -18,8 +18,6 @@ export function GET(req: Request) {
     redirect_uri:process.env.GOOGLE_GMAIL_REDIRECT_URL,
     state: "gmail",
   });
-  // console.log("🚀 ~ GET ~ authUrl:", process.env.GOOGLE_REDIRECT_URL);
 
-  // console.log("🚀 ~ GET ~ authUrl:", authUrl);
   return sendResponse(authUrl, "url generated", true, 200);
 }

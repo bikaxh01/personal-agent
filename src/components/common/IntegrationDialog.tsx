@@ -34,7 +34,7 @@ export function IntegrationComponent() {
     queryFn: checkIntegrations,
     queryKey: ["checkIntegrations"],
   });
-  console.log("🚀 ~ IntegrationComponent ~ error:", error);
+ 
 
   useEffect(() => {
     if (data) {

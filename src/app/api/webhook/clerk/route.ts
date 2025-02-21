@@ -2,10 +2,11 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { prisma } from "@/config/PrismaClient";
+import { sendResponse } from "@/config/Response";
 
-export async function POST(req: Response) {
+export async function POST(req: Request) {
   const SIGNING_SECRET = process.env.WEBHOOK_SECRET;
-  console.log("request clammed");
+
 
   if (!SIGNING_SECRET) {
     throw new Error(
@@ -27,7 +28,6 @@ export async function POST(req: Response) {
   }
 
   const payload = await req.json();
-
 
   const body = JSON.stringify(payload);
 
@@ -55,6 +55,5 @@ export async function POST(req: Response) {
       avatarUrl: payload.data.image_url,
     },
   });
-
-  return new Response("Webhook received", { status: 200 });
+  return sendResponse([],"success",true,200)
 }

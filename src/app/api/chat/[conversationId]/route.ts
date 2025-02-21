@@ -1,15 +1,19 @@
 import { generateResponse } from "@/config/GenerateResponse";
 import { prisma } from "@/config/PrismaClient";
 import { sendResponse } from "@/config/Response";
-import { auth } from "@clerk/nextjs/server";
 
-export async function POST(
-  req: Request,
-  { params }: { params: { conversationId: string } }
-) {
+ type Props = {
+  params: Promise<{
+    conversationId: string;
+  }>;
+};
+
+export async function POST(req: Request, Prop: Props) {
   try {
-    const { conversationId } = params;
-    const { userPrompt } = await req.json();
+    const {conversationId} = await Prop.params;
+    
+
+   const { userPrompt } = await req.json();
 
     if (!conversationId) {
       return sendResponse([], "Invalid id", false, 405);
@@ -42,9 +46,9 @@ export async function POST(
         createdAt: "asc",
       },
     });
-    
+
     // generate system response
-    const systemResponse = await generateResponse(userPrompt,messages);
+    const systemResponse = await generateResponse(userPrompt, messages);
 
     // add to db
     const systemMessage = await prisma.message.create({

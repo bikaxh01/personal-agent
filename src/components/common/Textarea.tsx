@@ -9,7 +9,7 @@ function Textarea({
   isLoading: boolean;
 }) {
   const [inputValue, setInputValue] = useState("");
-  console.log("🚀 ~ inputValue:", inputValue)
+
 
   return (
     <div className="  h-[8rem] w-[50rem] p-2 border-2 bg-white rounded-md">

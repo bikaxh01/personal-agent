@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useRef, useState,useEffect } from "react";
+import { useRef, useState,useEffect, Ref } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
@@ -13,7 +13,7 @@ export type Message = {
 };
 
 export function ChatComponent({ messages }: { messages: Message[] }) {
-  const chatComponent = useRef(null);
+  const chatComponent = useRef<HTMLInputElement>(null);
 
 
   useEffect(() => {

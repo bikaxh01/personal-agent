@@ -1,12 +1,19 @@
 import { prisma } from "@/config/PrismaClient";
 import { sendResponse } from "@/config/Response";
 
+
+type Props = {
+  params: Promise<{
+    conversationId: string;
+  }>;
+};
+
 export async function GET(
   req: Request,
-  { params }: { params: { conversationId: string } }
+  Prop:Props
 ) {
   try {
-    const { conversationId } = params;
+    const { conversationId } =await  Prop.params;
 
     const conversation = await prisma.conversation.findUnique({
       where: {

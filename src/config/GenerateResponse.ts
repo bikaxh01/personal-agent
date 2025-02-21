@@ -6,10 +6,7 @@ import { prisma } from "./PrismaClient";
 import { Message } from "@/components/common/ChatComponent";
 import { message } from "@prisma/client";
 
-type Message = {
-  role: "USER" | "SYSTEM";
-  content: string;
-};
+
 const API_KEY = process.env.OPEN_AI_KEY;
 
 const llm = new ChatOpenAI({
@@ -26,9 +23,7 @@ export async function generateResponse(
   allMessages: Message[]
 ) {
   const filteredAllMessage = allMessages.map((msg) => {
-    // const message = {
-    //   role: msg.role === "USER" ?msg.role.toLowerCase():
-    // }
+   
     return {
       role: msg.role.toLocaleLowerCase(),
       content: msg.content,
@@ -69,7 +64,7 @@ async function llmCall(state: typeof MessagesAnnotation.State) {
 async function toolNode(state: typeof MessagesAnnotation.State) {
   // Performs the tool call
   const results: ToolMessage[] = [];
-  const lastMessage = state.messages.at(-1);
+  const lastMessage:any = state.messages.at(-1);
 
   if (lastMessage?.tool_calls?.length) {
     for (const toolCall of lastMessage.tool_calls) {
@@ -90,7 +85,7 @@ async function toolNode(state: typeof MessagesAnnotation.State) {
 // Conditional edge function to route to the tool node or end
 function shouldContinue(state: typeof MessagesAnnotation.State) {
   const messages = state.messages;
-  const lastMessage = messages.at(-1);
+  const lastMessage:any = messages.at(-1);
 
   // If the LLM makes a tool call, then perform an action
   if (lastMessage?.tool_calls?.length) {

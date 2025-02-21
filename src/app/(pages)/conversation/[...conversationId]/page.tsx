@@ -59,7 +59,7 @@ function ConversationPage() {
       conversationId: params.conversationId,
     });
     //send request
-    console.log("🚀 ~ handleSubmit ~ value:", value);
+ 
   };
   return (
     <div className=" grid    h-full grid-rows-12 ">

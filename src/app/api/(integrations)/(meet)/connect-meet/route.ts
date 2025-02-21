@@ -19,8 +19,6 @@ export function GET(req: Request) {
     state: "meet",
     redirect_uri: process.env.GOOGLE_MEET_REDIRECT_URL,
   });
-  // console.log("🚀 ~ GET ~ authUrl:", process.env.GOOGLE_REDIRECT_URL);
-
-  // console.log("🚀 ~ GET ~ authUrl:", authUrl);
+  
   return sendResponse(authUrl, "url generated", true, 200);
 }
